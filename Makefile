@@ -1,21 +1,32 @@
-.PHONY: all clean ruby go c test
+.PHONY: all clean ruby go c test test-ruby test-go test-c
 
 all: ruby go c
 
 ruby:
-	ruby fizbuzz.rb
+	ruby fizzbuzz.rb
 
 go:
 	go run fizzbuzz.go
 
-c: fizbuzz
-	./fizbuzz
+c: fizzbuzz
+	./fizzbuzz
 
-fizbuzz: fizbuzz.c
-	gcc -o fizbuzz fizbuzz.c
+fizzbuzz: fizzbuzz.c
+	gcc -o fizzbuzz fizzbuzz.c
 
-test:
+test: test-ruby test-go test-c
+
+test-ruby:
+	ruby fizzbuzz_test.rb
+
+test-go:
 	go test ./...
 
+test-c: fizzbuzz_test
+	./fizzbuzz_test
+
+fizzbuzz_test: fizzbuzz_test.c fizzbuzz.c
+	gcc -o fizzbuzz_test fizzbuzz_test.c
+
 clean:
-	rm -f fizbuzz
+	rm -f fizzbuzz fizzbuzz_test
