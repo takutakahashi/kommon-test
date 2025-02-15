@@ -1,6 +1,6 @@
-.PHONY: all clean ruby go c test
+.PHONY: all clean ruby go c rust test
 
-all: ruby go c
+all: ruby go c rust
 
 ruby:
 	ruby fizbuzz.rb
@@ -11,6 +11,10 @@ go:
 c: fizbuzz
 	./fizbuzz
 
+rust:
+	rustc fizzbuzz.rs
+	./fizzbuzz
+
 fizbuzz: fizbuzz.c
 	gcc -o fizbuzz fizbuzz.c
 
@@ -18,4 +22,4 @@ test:
 	go test ./...
 
 clean:
-	rm -f fizbuzz
+	rm -f fizbuzz fizzbuzz
