@@ -3,20 +3,20 @@
 all: ruby go c rust
 
 ruby:
-	ruby fizbuzz.rb
+	ruby fizzbuzz.rb
 
 go:
 	go run fizzbuzz.go
 
-c: fizbuzz
-	./fizbuzz
+c: fizzbuzz
+	./fizzbuzz
 
 rust:
 	rustc fizzbuzz.rs
 	./fizzbuzz
 
-fizbuzz: fizbuzz.c
-	gcc -o fizbuzz fizbuzz.c
+fizzbuzz: fizzbuzz.c
+	gcc -o fizzbuzz fizzbuzz.c
 
 test:
 	go test ./...

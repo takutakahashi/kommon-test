@@ -1,0 +1,44 @@
+name: Multi-language CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+    
+    - name: Set up Rust
+      uses: dtolnay/rust-toolchain@stable
+    
+    - name: Install C dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential
+    
+    - name: Test Go
+      run: go test -v ./...
+    
+    - name: Build Go
+      run: go build ./...
+    
+    - name: Build C
+      run: make c
+    
+    - name: Build Rust
+      run: make rust
+    
+    - name: Run Ruby
+      run: ruby -c fizzbuzz.rb
